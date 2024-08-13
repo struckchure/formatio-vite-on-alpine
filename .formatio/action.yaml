@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  - build:
     steps:
       - name: Install nodejs
         run: sudo apk add --update nodejs npm
@@ -20,7 +20,7 @@ jobs:
       - name: Install pm2
         run: sudo npm install pm2@latest -g
 
-  deploy:
+  - deploy:
     steps:
       - name: Start App with pm2
         run: pm2 delete "vite-app" || true && pm2 serve ./dist --port 3000 --spa --name "vite-app"
