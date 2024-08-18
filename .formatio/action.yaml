@@ -8,10 +8,11 @@ on:
 jobs:
   - build:
     steps:
+      - name: Update debian source
+        run: curl -fsSL https://deb.nodesource.com/setup_18.x | bash
+
       - name: Install nodejs
-        run: |
-          curl -fsSL https://deb.nodesource.com/setup_18.x | bash
-          sudo apt install nodejs
+        run: sudo apt install nodejs
 
       - name: Install depenendencies
         run: npm install
