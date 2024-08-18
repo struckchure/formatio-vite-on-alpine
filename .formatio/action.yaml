@@ -12,10 +12,7 @@ jobs:
         run: sudo apt update -y
 
       - name: Add node source to apt repo
-        run: |
-          curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh
-          sudo bash nodesource_setup.sh
-          rm nodesource_setup.sh
+        run: curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh && sudo bash nodesource_setup.sh && rm nodesource_setup.sh
 
       - name: Install nodejs
         run: sudo apt install nodejs
