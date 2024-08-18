@@ -1,0 +1,31 @@
+name: Vite App Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  - build:
+    steps:
+      - name: Install nodejs
+        run: |
+          curl -fsSL https://deb.nodesource.com/setup_18.x | bash
+          sudo apt install nodejs
+
+      - name: Install depenendencies
+        run: npm install
+
+      - name: Build App
+        run: npm run build
+
+      - name: Install pm2
+        run: sudo npm install pm2@latest -g
+
+  - deploy:
+    steps:
+      - name: Start App with pm2
+        run: pm2 delete "vite-app" || true && pm2 serve ./dist --port 3000 --spa --name "vite-app"
+
+      - name: Save pm2 config
+        run: pm2 save
