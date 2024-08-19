@@ -18,7 +18,7 @@ jobs:
         run: sudo apt install nodejs
 
       - name: Install depenendencies
-        run: npm install
+        run: NODE_OPTIONS="--max-old-space-size=4096" npm install
 
       - name: Build App
         run: npm run build
