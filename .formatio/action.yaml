@@ -8,11 +8,14 @@ on:
 jobs:
   - build:
     steps:
-      - name: Update debian repos
+      - name: Update Debian repos
         run: sudo apt update -y
 
-      - name: Add node source to apt repo
-        run: curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh && sudo bash nodesource_setup.sh && rm nodesource_setup.sh
+      - name: Add Node source to apt repo
+        run: |
+          curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh
+          sudo bash nodesource_setup.sh
+          rm nodesource_setup.sh
 
       - name: Install nodejs
         run: sudo apt install nodejs
@@ -27,6 +30,7 @@ jobs:
         run: sudo npm install pm2@latest -g
 
   - deploy:
+    needs: build
     steps:
       - name: Start App with pm2
         run: pm2 delete "vite-app" || true && pm2 serve ./dist --port 3000 --spa --name "vite-app"
